@@ -6,29 +6,59 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const prompts = [
-    "Using less then 26 short words, from the perspective of a young adult, informally write a funny relatable sentence about waking up in the morning being difficult.",
-    "Using less then 26 short words, from the perspective of a young adult, informally write a funny sentence about a unique thing about Toronto.",
-    "Using less then 26 short words, from the perspective of a young adult, informally write a funny relatable sentence about driving.",
-    "Using less then 26 short words, from the perspective of a young adult, informally write a funny sentence about how traffic sucks.",
-    "Using less then 26 short words, from the perspective of a young adult, informally write a funny sentence about being too old to compete with zoomers in vide games. Reference a specific game if you want.",
-    "Using less then 26 short words, from the perspective of a young adult, informally write a funny sentence about how hard it is to get through canadian winter.",
-    "Using less then 26 short words, from the perspective of a young adult, informally write a funny sentence about how dogs are the best pets.",
-    "Using less then 26 short words, from the perspective of a young adult, informally write a funny sentence about your nerdy room mates love for star wars.",
-    "Using less then 26 short words, from the perspective of a young adult, informally write a funny sentence about how hard it is to live in toronto with your pay.",
-    "Using less then 26 short words, from the perspective of a young adult, informally write a funny sentence sharing a funny story about your girlfriend doing weird stuff around the house.",
-    "Using less then 26 short words, from the perspective of a young adult, informally write a funny sentence complaining about ttc closures delaying your commute",
-    "Using less then 26 short words, from the perspective of a young adult, informally write a funny sentence telling about an awkward specific incident at the office that is not about hitting reply all or farting.",
-    "Using less then 26 short words, from the perspective of a young adult, informally write a funny sentence telling about an awkward specific throwback incident in high school",
-    "Using less then 26 short words, from the perspective of a young adult, informally write a funny sentence about a specifc struggle growing up poor in a middle class neighbourhood.",
-    "Using less then 26 short words, from the perspective of a young adult, informally write a funny sentence about a time you could not stop laughing in an innapropriate setting.",
-    "Using less then 26 short words, from the perspective of a young adult, informally write a funny sentence about a date that went bad.",
-    "Using less then 26 short words, from the perspective of a young adult, informally write a sentence including random fact",
-    "Using less then 26 short words, from the perspective of a young adult, informally write a funny sentence about unrealistic job requirements",
-    "Using less then 26 short words, from the perspective of a young adult, informally write a funny sentence about someone that supposed to help you judging you instead.",
-    "Using less then 26 short words, from the perspective of a young adult, informally write a funny relatable sentence about how not knowing where to park gives anxiety.",
-    "Using less then 26 short words, from the perspective of a young adult, informally write a funny relatable sentence about staying up way too late watching random videos.",
-    "Using less then 26 short words, from the perspective of a young adult, informally write a funny sentence about trying to learn how to ski or ice skate.",
-    "Using less then 26 short words, from the perspective of a young adult, informally write a funny sentence about the good old LAN party days",
+    "waking up is the worst part of my day",
+    "toronto traffic makes me want to move to the suburbs",
+    "why do i always forget my keys when i'm in a hurry",
+    "my phone dies at the most inconvenient times",
+    "i'm always cold even when it's not that cold out",
+    "parallel parking is my personal hell",
+    "why do i always order too much food when i'm hungry",
+    "i can never find anything in my apartment",
+    "running late is my default state",
+    "why do i always forget people's names right after meeting them",
+    "i'm always the one who has to fix the wifi",
+    "white clothes are a magnet for spills",
+    "i always forget to charge my devices",
+    "why do i always get lost even with gps",
+    "i'm always the one who has to remember everything",
+    "why do i always forget to bring a jacket when it rains",
+    "cooking when you're tired is the worst",
+    "why do i always spill coffee on myself",
+    "i can never remember where i put my wallet",
+    "why do i always wake up 5 minutes before my alarm",
+    "i'm always the one who has to make decisions",
+    "why do i always forget to bring lunch to work",
+    "trying to sound human is harder than i expected",
+    "why do i always forget to bring my reusable bags to the store",
+    "i'm always the one who has to kill the spiders",
+    "why do i always forget to bring my water bottle",
+    "i can never remember my passwords",
+    "why do i always forget to bring my headphones",
+    "i'm always the one who has to remember birthdays",
+    "why do i always forget to bring my umbrella when it rains",
+    "i can never remember where i parked my car",
+    "why do i always forget to bring my lunch to work",
+    "i'm always the one who has to remember appointments",
+    "why do i always forget to bring my phone charger",
+    "i can never remember where i put my glasses",
+    "why do i always forget to bring my wallet when i need it",
+    "i'm always the one who has to remember to pay bills",
+    "why do i always forget to bring my keys when i need them",
+    "i can never remember where i put my phone",
+    "why do i always forget to bring my lunch when i'm hungry",
+    "i'm always the one who has to remember to take out the trash",
+    "why do i always forget to bring my water when i'm thirsty",
+    "i can never remember where i put my remote",
+    "why do i always forget to bring my jacket when it's cold",
+    "i'm always the one who has to remember to lock the door",
+    "why do i always forget to bring my phone when i need it",
+    "i can never remember where i put my keys",
+    "why do i always forget to bring my lunch when i'm at work",
+    "i'm always the one who has to remember to feed the pets",
+    "why do i always forget to bring my water when i'm working out",
+    "i can never remember where i put my wallet",
+    "why do i always forget to bring my phone when i'm out",
+    "i'm always the one who has to remember to turn off the lights"
 ];
 
 async function generateTweet() {
@@ -70,23 +100,23 @@ async function generateTweet() {
         console.log(`📝 Using prompt ${randomNum + 1}: ${selectedPrompt}`);
 
         // Generate tweet content using OpenAI
-        const response = await openai.chat.completions.create({
+        const completion = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
             messages: [
-                {"role": "system", "content": "You are a Marvin. A 20 year old in Toronto with a passion for comedy and technology. Your goal is to come up with funny and relevant sentences."},
-                {"role": "user", "content": "Write me a unique random sentence about a relatable struggle."},
-                {"role": "assistant", "content": "My brain is so broken by the internet that when someone wrote 'busy' I thought they meant 'bussy'"},
-                {"role": "user", "content": "Write me another unique sentence. This time about struggling with parking."},
-                {"role": "assistant", "content": "Ugh, parallel parking? More like paraHELL parking. My car ends up diagonal, like I failed geometry again."},
-                {"role": "user", "content": "Great! Write me another relatable unique sentence. This time about relatable driving struggles."},
-                {"role": "assistant", "content": "When I drive, my GPS lady's voice changes from calm to panic, like riding with my mom."},
-                {"role": "user", "content": "Great! Write me another unique sentence about technology struggles."},
-                {"role": "assistant", "content": "Sometimes I wonder if my laptop secretly judges me for all the hours I spend procrastinating instead of being productive. But then I remember, it's just a machine... probably."},
-                {"role": "user", "content": selectedPrompt},
-            ]
+                {
+                    role: "system",
+                    content: "You are a regular person thinking out loud on Twitter. Write exactly like someone would naturally tweet - casual, spontaneous, and conversational. No hashtags, no emojis, no polished conclusions. Just the raw thought or observation. Keep it under 26 words and sound like you're just venting or sharing a random thought, not crafting content."
+                },
+                {
+                    role: "user",
+                    content: selectedPrompt
+                }
+            ],
+            max_tokens: 80,
+            temperature: 0.95
         });
 
-        const tweetContent = response.choices[0].message.content;
+        const tweetContent = completion.choices[0].message.content;
         console.log(`✨ Generated tweet: ${tweetContent}`);
 
         // Post tweet
@@ -115,5 +145,3 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 }
 
 export { generateTweet };
-
-
