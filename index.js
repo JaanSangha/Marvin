@@ -5,60 +5,19 @@ import dotenv from "dotenv";
 // Load environment variables
 dotenv.config();
 
-const prompts = [
-    "waking up is the worst part of my day",
-    "toronto traffic makes me want to move to the suburbs",
-    "why do i always forget my keys when i'm in a hurry",
-    "my phone dies at the most inconvenient times",
-    "i'm always cold even when it's not that cold out",
-    "parallel parking is my personal hell",
-    "why do i always order too much food when i'm hungry",
-    "i can never find anything in my apartment",
-    "running late is my default state",
-    "why do i always forget people's names right after meeting them",
-    "i'm always the one who has to fix the wifi",
-    "white clothes are a magnet for spills",
-    "i always forget to charge my devices",
-    "why do i always get lost even with gps",
-    "i'm always the one who has to remember everything",
-    "why do i always forget to bring a jacket when it rains",
-    "cooking when you're tired is the worst",
-    "why do i always spill coffee on myself",
-    "i can never remember where i put my wallet",
-    "why do i always wake up 5 minutes before my alarm",
-    "i'm always the one who has to make decisions",
-    "why do i always forget to bring lunch to work",
-    "trying to sound human is harder than i expected",
-    "why do i always forget to bring my reusable bags to the store",
-    "i'm always the one who has to kill the spiders",
-    "why do i always forget to bring my water bottle",
-    "i can never remember my passwords",
-    "why do i always forget to bring my headphones",
-    "i'm always the one who has to remember birthdays",
-    "why do i always forget to bring my umbrella when it rains",
-    "i can never remember where i parked my car",
-    "why do i always forget to bring my lunch to work",
-    "i'm always the one who has to remember appointments",
-    "why do i always forget to bring my phone charger",
-    "i can never remember where i put my glasses",
-    "why do i always forget to bring my wallet when i need it",
-    "i'm always the one who has to remember to pay bills",
-    "why do i always forget to bring my keys when i need them",
-    "i can never remember where i put my phone",
-    "why do i always forget to bring my lunch when i'm hungry",
-    "i'm always the one who has to remember to take out the trash",
-    "why do i always forget to bring my water when i'm thirsty",
-    "i can never remember where i put my remote",
-    "why do i always forget to bring my jacket when it's cold",
-    "i'm always the one who has to remember to lock the door",
-    "why do i always forget to bring my phone when i need it",
-    "i can never remember where i put my keys",
-    "why do i always forget to bring my lunch when i'm at work",
-    "i'm always the one who has to remember to feed the pets",
-    "why do i always forget to bring my water when i'm working out",
-    "i can never remember where i put my wallet",
-    "why do i always forget to bring my phone when i'm out",
-    "i'm always the one who has to remember to turn off the lights"
+const tweetCategories = [
+    "everyday life frustrations and relatable moments",
+    "tech and social media absurdity",
+    "work and office humor",
+    "relationships and social awkwardness", 
+    "current events and pop culture",
+    "space, science, and tech humor",
+    "food and cooking disasters",
+    "transportation and travel mishaps",
+    "pet and animal antics",
+    "shopping and consumer culture",
+    "health and fitness struggles",
+    "entertainment and media commentary"
 ];
 
 async function generateTweet(maxRetries = 3, retryDelay = 5000) {
@@ -97,11 +56,11 @@ async function generateTweet(maxRetries = 3, retryDelay = 5000) {
                 apiKey: process.env.OPENAI_API_KEY,
             });
 
-            // Select random prompt
-            const randomNum = Math.floor(Math.random() * prompts.length);
-            const selectedPrompt = prompts[randomNum];
+            // Select random category
+            const randomNum = Math.floor(Math.random() * tweetCategories.length);
+            const selectedCategory = tweetCategories[randomNum];
             
-            console.log(`📝 Using prompt ${randomNum + 1}: ${selectedPrompt}`);
+            console.log(`📝 Using category ${randomNum + 1}: ${selectedCategory}`);
 
             // Generate tweet content using OpenAI
             const completion = await openai.chat.completions.create({
@@ -109,15 +68,15 @@ async function generateTweet(maxRetries = 3, retryDelay = 5000) {
                 messages: [
                     {
                         role: "system",
-                        content: "You are a regular person thinking out loud on Twitter. Respond directly to the user's prompt with a casual, relatable tweet. Write exactly like someone would naturally tweet - just the raw thought or observation, nothing more. ABSOLUTELY NO hashtags, NO emojis, NO conclusions, NO 'story of my life' endings, NO explanations. Keep it under 26 words and sound like you're sharing a random thought, not crafting content. Make it specific and relatable - avoid vague philosophical statements."
+                        content: "You are a hilarious, witty Twitter personality who creates viral-worthy tweets. You're known for being clever, relatable, and making people laugh out loud. When given a topic category, create a tweet that's so good people want to retweet it immediately. Be creative, unexpected, and genuinely funny - not just mildly amusing. Use specific details, clever wordplay, or unexpected angles. Keep it under 26 words, casual tone, NO hashtags or emojis. Make people think 'omg this is genius' or 'I'm literally crying laughing.'"
                     },
                     {
                         role: "user",
-                        content: selectedPrompt
+                        content: `Generate a humorous tweet about: ${selectedCategory}`
                     }
                 ],
                 max_tokens: 80,
-                temperature: 0.95
+                temperature: 1.1
             });
 
             const tweetContent = completion.choices[0].message.content;
